@@ -1,80 +1,86 @@
+const myString = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s Assistant,26";
 
-const myString = "Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232";
-let newstr = "";
-let cell1 = "";
-let cell2 = "";
-let cell3 = "";
-let cell4 = "";
+
 let counter = 1;
-let nCounter = 1;
-for(let i = 0; i <= myString.length; i++){
-    if(myString[i] === '\n'){
-        console.log(cell1, cell2, cell3, cell4);
-         cell1 = "";
- cell2 = "";
-cell3 = "";
- cell4 = "";
-        counter = 1
-        continue;
-    }
-    
-if(myString[i] === ','){
+let arr = [[]];
+const myDictionary = {};
+
+for (let i = 0; i <= myString.length; i++) {
+  if (myString[i] === '\n') {
+    break;
+  }
+  if (myString[i] === ',') {
     counter++;
+  }
+}
+
+let arrElement = "";
+let lineCounter = 0;
+for (let i = 0; i < myString.length; i++) {
+
+  if (myString[i] === ',') {
+    arr[lineCounter].push(arrElement);
+    arrElement = "";
     continue;
+  }
+
+  if (myString[i] === '\n') {
+    arr[lineCounter].push(arrElement);
+    arrElement = "";
+    lineCounter++;
+    arr.push([]);
+    continue;
+  }
+
+  arrElement += myString[i];
 }
-if(counter === 1){
-    cell1 += myString[i];
-}
-if(counter === 2){
-    cell2 += myString[i];
-}
-if(counter === 3){
-    cell3 += myString[i];
-}
-if(counter === 4){
-    cell4 += myString[i];
-}
+arr[lineCounter].push(arrElement);
 
+console.log(arr);
 
-}
+// Part 3
 
-for(let j = 0; j <= myString.length; j++){
-
-    if(myString[j] === '\n'){
-        break;
-    }
-    if(myString[j] === ',') {
-        nCounter++;
-    }
+const collection = [];
+for (let i = 1; i < arr.length; i++) {
+  let obj = {};
+  for (let j = 0; j < arr[i].length; j++) {
+    obj[arr[0][j].toLowerCase()] = arr[i][j];
+  }
+  collection.push(obj);
 }
 
-console.log(`The dictionary have ${nCounter} elements`)
+console.log(collection);
+
+// Part 4
+
+collection.pop();
+collection.splice(1, 0, {id: "48", name: "Barry", occupation: "Runner", age: "25"});
+collection.push({id: "7", name: "Bilbo", occupation: "None", age: "111"});
 
 
+// Calculate average age
+let sum = 0;
+for (let i = 0; i < collection.length; i++) {
+  sum += parseInt(collection[i].age);
+}
+const avgAge = sum / collection.length;
+console.log("Average age: ", avgAge);
 
 
-
-
-// for(let j = 0; j <= myString.length; j++){
-
-//     if(myString[j] === '\n'){
-//         break;
-//     }
-//     if(myString[j] === ',') {
-//         nCounter++;
-//     }
-// }
-
-
-// for (const i of myString) {
- 
-//     if (myString[i] == "\n"){
-//         while (i != ",")
-//         continue;
-//     }
-// newstr += i; 
-//     console.log(newstr);
-
-// }
-
-
+//Part 5
+let csvString = "";
+for (let key in collection[0]) {
+  csvString += key + ",";
+}
+csvString = csvString.slice(0, -1);
+csvString += "\n";
+for (let i = 0; i < collection.length; i++) {
+  for (let key in collection[i]) {
+    csvString += collection[i][key] + ",";
+  }
+  csvString = csvString.slice(0, -1);
+  csvString += "\n";
+}
+csvString = csvString.slice(0, -1);
+console.log('CSV: ');
+console.log(csvString);
