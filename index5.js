@@ -36,7 +36,7 @@ for (let i = 0; i < myString.length; i++) {
 }
 arr[lineCounter].push(arrElement);
 
-console.log(arr);
+console.log(`Two dimentional array: ${arr}`);
 
 // Part 3
 
