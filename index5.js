@@ -49,7 +49,8 @@ for (let i = 1; i < arr.length; i++) {
   collection.push(obj);
 }
 
-console.log(collection);
+
+l
 
 // Part 4
 
@@ -84,3 +85,5 @@ for (let i = 0; i < collection.length; i++) {
 csvString = csvString.slice(0, -1);
 console.log('CSV: ');
 console.log(csvString);
+
+
